@@ -33,8 +33,3 @@ class Pessoa:
                 return
             self.come = True    
             print(f'O/A {self.nome} está comendo {alimento}.')
-
-
-    def Finalizar(self):
-        self.fala = False
-        self.come = False
