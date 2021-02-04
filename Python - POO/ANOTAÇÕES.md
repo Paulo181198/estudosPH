@@ -136,3 +136,77 @@ Cliente1.compra("Casa")
 Aluno1 = Aluno("Magali", 27, "F")
 Aluno1 = fala("vestibular")
 Aluno1.Estuda("Matemática")
+
+- Poliformismo
+O poliformismo acontece quando uma sub-classe herda uma super-classe e, ao alterar alguma método herdado, acaba sobrescrevendo o método.
+Ex:
+
+class Pessoa:
+    def __init__(self, nome, idade, sexo):
+        self.nome = nome
+        self.idade = idade
+        self.sexo = sexo
+    
+    def fala(self):
+        print(f'A pessoa {self.nome} está falando...)
+
+
+class Cliente(Pessoa):
+    def __init__(self, nome, idade, sexo, IDCliente):
+        self.nome = nome
+        self.idade = idade
+        self.sexo = sexo
+        self.IDCliente = IDCliente
+
+Nesse exemplo, apesar do método falar continuar sendo herdado pela classe Cliente, o método __init__, ao ser alterado, foi sobrescrito e,
+agora, para o python, ele é um método novo e seus atributos, apesar de serem na maioria iguais ao do método Pessoa (self.nome, self.idade
+e self.sexo), não são mais herdados. Esse fenômeno acontece com todos os métodos herdados. 
+
+- Super()
+Super é a função do python em que um método de uma super-classe é chamado até a sub-classe, para que seja feita uma edição sem poliformismo.
+dessa maneira, a sub-classe herda a super-classe e consegue alterar alguma parte do método herdado sem sobrescrever ele (poliformismo). Ex:
+
+class Pessoa:
+    def __init__(self, nome, idade, sexo):
+        self.nome = nome
+        self.idade = idade
+        self.sexo = sexo
+    
+    def fala(self):
+        print(f'A pessoa {self.nome} está falando...)
+
+
+class Cliente(Pessoa):
+    def __init__(self, nome, idade, sexo, IDCliente):
+        super().__init__(nome, idade, sexo):
+            self.IDCliente = IDCliente
+
+Assim, com o super() eu consegui acrescentar mais atributos ao meu método __init__ sem sobrescrever o mesmo método herdado da classe Pessoa.
+essa funcionalidade serve para qualquer método.
+
+MÉTODOS E CLASSES ABSTRATAS
+Existem classes e métodos que, por natureza, são muito abstratos e, por esse motivo, não precisam ser instanciados. Por exemplo, temos a classe Figura:
+ela é muito abstrata, uma vez que de figura, podem ser derivadas diversas classes mais concretas e específicas, que porem herdar a classe Figura, como
+Quadrado, Circulo, Triangulo... Por isso, para evitar que os desenvolvedores instanciem classes muito abstratas, o python oferece a lib abc, com os objetos
+ABC e @abstractmethod. Exemplos de como utilizá-los:
+
+from abc import ABC
+
+class Figura(abc):
+    def __init__(self, cor):
+        self.cor = cor
+    @abstractmethod
+    def calculaArea(self)
+        pass
+    
+class Quadrado(Figura):
+    def __init__(self, cor, lado):
+        super().__init__(cor)
+        self.lado = lado
+    
+Ao tentar instanciar a classe Figura, o python retornará um erro, pois essa classe é abstrata. Por isso, são inválidos os comandos:
+
+F1 = Figura("laranja")
+Figura.cor(F1)
+
+

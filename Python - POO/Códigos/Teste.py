@@ -33,5 +33,5 @@ p1.AdicionaEndereco('Juquitiba', 'SP')
 print(p1.endereco)
 
 #Herança
-C1 = Cliente("João", 25, "M")
+C1 = Cliente("João", 25, "M", 5)
 C1.compra("Mala")
